@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Critère de recherche - Dossier médical</title>
+<link rel="stylesheet" type="text/css" 
+	  href="../static/css/bootstrap.min.css"
+	  th:href="@{css/bootstrap.min.css}"/>
+</head>
+<body>
+	<div class ="container">
+	<h3> Liste des rapports</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>numRapport</th><th>dateCreation</th><th>titre</th><th>domaine</th><th>position</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="r:${listeRapports}">
+			<td th:text ="${r.numRapport}"></td>
+			<td th:text ="${r.dateCreation}"></td>
+			<td th:text ="${r.titre}"></td>
+			<td th:text ="${r.domaine}"></td>
+			<td th:text ="${r.position}"></td>
+			<td><a th:href ="@{delete(id=${r.idRapport})}">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</body>
+</html>

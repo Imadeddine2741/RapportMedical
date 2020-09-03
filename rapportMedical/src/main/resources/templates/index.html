@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Critère de recherche - Dossier médical</title>
+<link rel="stylesheet" type="text/css" 
+	  href="../static/css/bootstrap.min.css"
+	  th:href="@{css/bootstrap.min.css}"/>
+</head>
+<body>
+	<div class ="container">
+	<br>
+		<form th:action=@{recherche} method ="get">
+			N de dossier : <input type ="number" name="numRapport" th:value="${numRapport}"><br>
+			N assuré : <input type ="number" name="numAssure" th:value="${numAssure}"><br>
+			Nom / Raison social : <input type ="text" name="nomAssure" th:value="${nomAssure}"><br>
+			<br>
+			<button class="btn btn-primary"> Chercher </button>
+		</form>
+	</div>
+</body>
+</html>
