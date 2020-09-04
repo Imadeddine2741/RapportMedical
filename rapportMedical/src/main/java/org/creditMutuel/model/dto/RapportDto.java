@@ -7,10 +7,15 @@ import org.creditMutuel.model.entity.Commentaire;
 import org.creditMutuel.model.enumeration.Domaine;
 import org.creditMutuel.model.enumeration.Position;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@RequiredArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Builder
 public class RapportDto {
 
@@ -23,4 +28,5 @@ public class RapportDto {
     private Position position;
 	private List<Commentaire> commentaires;
 
+	
 }

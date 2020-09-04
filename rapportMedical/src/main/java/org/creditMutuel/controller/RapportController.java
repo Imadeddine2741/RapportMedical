@@ -65,7 +65,7 @@ public class RapportController {
 		RapportDto rapport = null;
 		List<RapportDto> rapports = null;
 
-		if(num ==0 && num ==0  && nomAssure.isEmpty()) {
+		if(num ==0 && numAssure == 0  && nomAssure.isEmpty()) {
 			modelAndView.setViewName("index");
 		}
 		else {
@@ -73,11 +73,11 @@ public class RapportController {
 				rapport = rapportService.getByNumRapport(num);
 				// Si rapport à été trouvé, on l'ajoute au model
 				if(rapport !=null) model.addAttribute("listeRapports", rapport); 
-			}if(num !=0  && (rapport!=null && rapport == null)) {
+			}if(numAssure !=0  && (rapport==null && rapports == null)) {
 				rapports = rapportService.getByNumAssure(numAssure);
 				// Si rapport à été trouvé, on l'ajoute au model
 				if(!rapports.isEmpty()) model.addAttribute("listeRapports", rapports); 	
-			}if(!nomAssure.isEmpty() && (rapport!=null && rapports.isEmpty())) {
+			}if(!nomAssure.isEmpty() && (rapport==null && rapports.isEmpty())) {
 				rapports = rapportService.getByNomAssure("%"+nomAssure+"%");	
 				// Si rapport à été trouvé, on l'ajoute au model
 				if(!rapports.isEmpty()) model.addAttribute("listeRapports", rapports); 

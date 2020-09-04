@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 @Service
-//@RequiredArgsConstructor 
+@RequiredArgsConstructor 
 public class CommentaireServiceImpl implements CommentaireService{
 	
 	@Autowired

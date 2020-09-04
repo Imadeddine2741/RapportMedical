@@ -48,7 +48,7 @@ public class RapportControllerIntegrationTest {
 	@MockBean
 	private RapportRepository rapportrepository;
 	
-//	
+	
 	@Test
 	public void findAllTest() {
 		when(repository.findAll()).thenReturn(Stream.of(new Assure(1,"Dupont","Albert", "1966-02-15","Rue Victor Hugo - 6900 - Lyon"), new Assure(2,"Dupont", "Fréderic", "1970-05-12", "Rue des Fleurs - 6900 - Lyon"))

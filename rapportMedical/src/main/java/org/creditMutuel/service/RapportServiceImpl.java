@@ -6,6 +6,7 @@ import org.creditMutuel.logger.LoggerService;
 import org.creditMutuel.model.dto.RapportDto;
 import org.creditMutuel.model.entity.Rapport;
 import org.creditMutuel.model.mapper.RapportMapper;
+import org.creditMutuel.model.mapper.RapportMapperStruct;
 import org.creditMutuel.repository.RapportRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,10 @@ import org.springframework.stereotype.Service;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class RapportServiceImpl implements RapportService{
 	
 	private static final Logger LOGGER = 
@@ -25,10 +28,14 @@ public class RapportServiceImpl implements RapportService{
 
 	@Autowired
 	private  RapportMapper rapportMapper;
+	
+	@Autowired
+	private RapportMapperStruct rapportMapperStruct;
 
 	public List<RapportDto> getAll() {
 		List<Rapport> rapports = rapportRepository.findAll();
-		return rapportMapper.entitiesToDtos(rapports);
+		//return rapportMapper.entitiesToDtos(rapports);	
+		return rapportMapperStruct.rapportsToRapportsDtos(rapports);
 	}
 
 
@@ -43,7 +50,8 @@ public class RapportServiceImpl implements RapportService{
 			rapport.setAssure(rapportDetails.getAssure());
 			rapport.setCommentaires(rapportDetails.getCommentaires());
 			Rapport rapportSave =  rapportRepository.save(rapport);
-			return rapportMapper.entityToDto(rapportSave);
+			//return rapportMapper.entityToDto(rapportSave);
+			return  rapportMapperStruct.rapportToRapportDto(rapportSave);
 		}else {
 			return null;
 		}
@@ -59,7 +67,8 @@ public class RapportServiceImpl implements RapportService{
     	
 		Rapport myRapport =rapportRepository.findByNumRapport(num);
 		if(myRapport !=null) {
-			return  rapportMapper.entityToDto(myRapport);
+			//return  rapportMapper.entityToDto(myRapport);
+			return rapportMapperStruct.rapportToRapportDto(myRapport);
 		}
 		return null;
 	}
@@ -73,7 +82,8 @@ public class RapportServiceImpl implements RapportService{
     	
 		List<Rapport> myRapports = rapportRepository.findByNumAssure(numAssure);	
 		if(myRapports !=null) {
-			return  rapportMapper.entitiesToDtos(myRapports);
+			//return  rapportMapper.entitiesToDtos(myRapports);
+			return rapportMapperStruct.rapportsToRapportsDtos(myRapports);
 		}
 		return null;
 	}
@@ -87,7 +97,8 @@ public class RapportServiceImpl implements RapportService{
     	
 		List<Rapport> myRapports = rapportRepository.findByNomAssure(nomAssure);	
 		if(myRapports !=null) {
-			return  rapportMapper.entitiesToDtos(myRapports);
+			//return  rapportMapper.entitiesToDtos(myRapports);
+			return rapportMapperStruct.rapportsToRapportsDtos(myRapports);
 		}
 		return null;
 	}
