@@ -16,7 +16,7 @@ public class RapportDto {
 
 	private Assure assure;
 	private long idRapport;
-	private Integer numRapport ;
+	private Integer num;
 	private String dateCreation;
 	private String titre;
     private Domaine domaine;

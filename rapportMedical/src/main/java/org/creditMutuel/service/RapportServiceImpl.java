@@ -26,8 +26,8 @@ public interface RapportServiceImpl {
 	 * @param numRapport : le numéro de rapport
 	 * @return : un rapport DTO avec la liste des assurés ainsi que la liste des commentaires
 	 */
-	@Cacheable(value= "rapportEnCacheNumRapport",key="#numRapport")
-	public RapportDto getByNumRapport(int numRapport);
+	@Cacheable(value= "rapportGetbyNumRapport",key="#num")
+	public RapportDto getByNumRapport(Integer num);
 	
 	/**
 	 * Fonction getByNumAssureOrNom : recherche des rapport d'un assuré en 
@@ -35,7 +35,6 @@ public interface RapportServiceImpl {
 	 * @param numAssure : le numéro de l'assure
 	 * @return : une liste de rapports avec la liste des assurés
 	 */
-	@Cacheable(value= "rapportEnCacheNumAssure",key="#numAssure")
 	public List<RapportDto> getByNumAssure(int numAssure);
 	
 	/**
@@ -44,7 +43,6 @@ public interface RapportServiceImpl {
 	 * @param nomAssure : le nom de l'assure
 	 * @return : une liste de rapports avec la liste des assurés
 	 */
-	@Cacheable(value= "rapportEnCacheNomAssure",key="#nomAssure")
 	public List<RapportDto> getByNomAssure(String nomAssure);
 	
 	/**

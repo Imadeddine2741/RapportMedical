@@ -60,21 +60,21 @@ public class RapportController {
 	
 	@SuppressWarnings({ "null", "unused" })
 	@RequestMapping(value="/recherche")
-	public ModelAndView recherche(Model model, @RequestParam(name ="numRapport", defaultValue = "0") Integer  numRapport, @RequestParam(name ="numAssure", defaultValue = "0") Integer  numAssure,  @RequestParam(name ="nomAssure", defaultValue = "") String  nomAssure) {
+	public ModelAndView recherche(Model model, @RequestParam(name ="num", defaultValue = "0") Integer  num, @RequestParam(name ="numAssure", defaultValue = "0") Integer  numAssure,  @RequestParam(name ="nomAssure", defaultValue = "") String  nomAssure) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		RapportDto rapport = null;
 		List<RapportDto> rapports = null;
 
-		if(numRapport ==0 && numRapport ==0  && nomAssure.isEmpty()) {
+		if(num ==0 && num ==0  && nomAssure.isEmpty()) {
 			modelAndView.setViewName("index");
 		}
 		else {
-			if(numRapport !=0 ) {
-				rapport = rapportService.getByNumRapport(numRapport);
+			if(num !=0 ) {
+				rapport = rapportService.getByNumRapport(num);
 				// Si rapport à été trouvé, on l'ajoute au model
 				if(rapport !=null) model.addAttribute("listeRapports", rapport); 
-			}if(numRapport !=0  && (rapport!=null && rapport == null)) {
+			}if(num !=0  && (rapport!=null && rapport == null)) {
 				rapports = rapportService.getByNumAssure(numAssure);
 				// Si rapport à été trouvé, on l'ajoute au model
 				if(!rapports.isEmpty()) model.addAttribute("listeRapports", rapports); 	
@@ -131,7 +131,7 @@ public class RapportController {
 		rapport.setDomaine(rapportDetails.getDomaine());
 		rapport.setPosition(rapportDetails.getPosition());
 		rapport.setTitre(rapportDetails.getTitre());
-		rapport.setNumRapport(rapportDetails.getNumRapport());
+		rapport.setNum(rapportDetails.getNum());
 		rapport.setAssure(rapportDetails.getAssure());
 		rapport.setCommentaires(rapportDetails.getCommentaires());
 

@@ -8,6 +8,7 @@ import org.creditMutuel.model.entity.Rapport;
 import org.creditMutuel.model.mapper.RapportMapperImpl;
 import org.creditMutuel.repository.RapportRepository;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import ch.qos.logback.classic.Level;
@@ -39,7 +40,7 @@ public class RapportService implements RapportServiceImpl{
 			rapport.setDomaine(rapportDetails.getDomaine());
 			rapport.setPosition(rapportDetails.getPosition());
 			rapport.setTitre(rapportDetails.getTitre());
-			rapport.setNumRapport(rapportDetails.getNumRapport());
+			rapport.setNum(rapportDetails.getNum());
 			rapport.setAssure(rapportDetails.getAssure());
 			rapport.setCommentaires(rapportDetails.getCommentaires());
 			Rapport rapportSave =  rapportRepository.save(rapport);
@@ -49,15 +50,15 @@ public class RapportService implements RapportServiceImpl{
 		}
 		
 	}
-
-	public RapportDto getByNumRapport(int numRapport){
+	
+	public RapportDto getByNumRapport(Integer num){
 		
 		// je  recherche le rapport en fonction du num_rapport
 		
-		Integer[] params =  {numRapport};
+		Integer[] params =  {num};
     	LoggerService.ecritLogMessage(LOGGER, Level.INFO, "Rapport {} non présent en cache, on interroge la bdd", params);
     	
-		Rapport myRapport =rapportRepository.findByNumRapport(numRapport);
+		Rapport myRapport =rapportRepository.findByNumRapport(num);
 		if(myRapport !=null) {
 			return  rapportMapper.entityToDto(myRapport);
 		}

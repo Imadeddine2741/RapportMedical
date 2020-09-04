@@ -17,7 +17,7 @@ public class RapportMapper implements RapportMapperImpl {
 	
 	public RapportDto entityToDto(final Rapport rapport) {
 		return RapportDto.builder().idRapport(rapport.getId())
-				.numRapport(rapport.getNumRapport())
+				.num(rapport.getNum())
 				.domaine(rapport.getDomaine())
 				.position(rapport.getPosition())
 				.titre(rapport.getTitre())

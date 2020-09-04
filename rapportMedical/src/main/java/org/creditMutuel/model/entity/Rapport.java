@@ -1,8 +1,8 @@
 package org.creditMutuel.model.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,8 +35,8 @@ public class Rapport implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name ="numRapport")
-	private Integer numRapport ;
+	@Column(name ="num")
+	private Integer num;
 
 	@OneToOne( cascade = CascadeType.ALL ) 
     @JoinColumn( name="assure" )
@@ -63,11 +63,11 @@ public class Rapport implements Serializable{
 	*/
 
 
-	public Rapport(Assure assure, Integer numRapport , String dateCreation, String titre, Domaine domaine, Position position,
+	public Rapport(Assure assure, Integer num , String dateCreation, String titre, Domaine domaine, Position position,
 			List<Commentaire> commentaires) {
 		super();
 		this.assure = assure;
-		this.numRapport=numRapport;
+		this.num=num;
 		this.dateCreation = dateCreation;
 		this.titre = titre;
 		this.domaine = domaine;
@@ -131,12 +131,12 @@ public class Rapport implements Serializable{
 		return commentaires;
 	}
 	
-	public Integer getNumRapport() {
-		return numRapport;
+	public Integer getNum() {
+		return num;
 	}
 
-	public void setNumRapport(Integer numRapport) {
-		this.numRapport = numRapport;
+	public void setNum(Integer num) {
+		this.num = num;
 	}
 
 	public void setCommentaires(List<Commentaire> commentaires) {

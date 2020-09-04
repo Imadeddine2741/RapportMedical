@@ -73,7 +73,7 @@ public class RapportControllerIntegrationTest {
 		when(rapportrepository.findByNumAssure(1)).thenReturn(Stream.of(new Rapport(new Assure(1,"Dupont","Albert", "1966-02-15","Rue Victor Hugo - 6900 - Lyon"),2, "Rapport DupFre1", "2019-08-15" ,Domaine.Sinistre, Position.En_attente, 
 																	Arrays.asList(new Commentaire("24/08/2020", "22/08/2020", "balabla"),new Commentaire("24/08/2020", "22/08/2020", "balabla")))).collect(Collectors.toList()));
 		
-		assertEquals(2,rapportService.getByNumAssure(numAssure).get(0).getNumRapport().intValue());
+		assertEquals(2,rapportService.getByNumAssure(numAssure).get(0).getNum().intValue());
 	}
 	
 	@Test
@@ -82,7 +82,7 @@ public class RapportControllerIntegrationTest {
 		when(rapportrepository.findByNomAssure(nomAssure)).thenReturn(Stream.of(new Rapport(new Assure(1,"Dupont","Albert", "1966-02-15","Rue Victor Hugo - 6900 - Lyon"),2, "Rapport DupFre1", "2019-08-15" ,Domaine.Sinistre, Position.En_attente, 
 																	Arrays.asList(new Commentaire("24/08/2020", "22/08/2020", "balabla"),new Commentaire("24/08/2020", "22/08/2020", "balabla")))).collect(Collectors.toList()));
 		
-		assertEquals(2,rapportService.getByNomAssure(nomAssure).get(0).getNumRapport().intValue());
+		assertEquals(2,rapportService.getByNomAssure(nomAssure).get(0).getNum().intValue());
 	}
 	
 	@Test
