@@ -2,99 +2,52 @@ package org.creditMutuel.service;
 
 import java.util.List;
 
-import org.creditMutuel.logger.LoggerService;
 import org.creditMutuel.model.dto.RapportDto;
 import org.creditMutuel.model.entity.Rapport;
-import org.creditMutuel.model.mapper.RapportMapperImpl;
-import org.creditMutuel.repository.RapportRepository;
-import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
+public interface RapportService {
 
-import lombok.RequiredArgsConstructor;
-
-@Service
-@RequiredArgsConstructor 
-public class RapportService implements RapportServiceImpl{
+	/**
+	 * Fonction getById : récuperer tout les rapports 
+	 * @return : une liste de rapports DTO
+	 */
+	public List<RapportDto> getAll() ;
 	
-	private static final Logger LOGGER = 
-			(ch.qos.logback.classic.Logger) LoggerFactory.getLogger(RapportServiceImpl.class);
-
-	private final RapportRepository rapportRepository;
-
-	private final RapportMapperImpl rapportMapper;
-
-	public List<RapportDto> getAll() {
-		List<Rapport> rapports = rapportRepository.findAll();
-		return rapportMapper.entitiesToDtos(rapports);
-	}
-
-
-	public RapportDto addRapport(RapportDto rapportDetails) {
-		if( rapportDetails != null) {
-			Rapport rapport= new Rapport();
-			rapport.setDateCreation(rapportDetails.getDateCreation());
-			rapport.setDomaine(rapportDetails.getDomaine());
-			rapport.setPosition(rapportDetails.getPosition());
-			rapport.setTitre(rapportDetails.getTitre());
-			rapport.setNum(rapportDetails.getNum());
-			rapport.setAssure(rapportDetails.getAssure());
-			rapport.setCommentaires(rapportDetails.getCommentaires());
-			Rapport rapportSave =  rapportRepository.save(rapport);
-			return rapportMapper.entityToDto(rapportSave);
-		}else {
-			return null;
-		}
-		
-	}
+	/**
+	 * Fonction addRapport : ajouter un rapport 
+	 * @return : le rapport DTO ajouter 
+	 */
+	public RapportDto addRapport(RapportDto rapportDetails);
 	
-	public RapportDto getByNumRapport(Integer num){
-		
-		// je  recherche le rapport en fonction du num_rapport
-		
-		Integer[] params =  {num};
-    	LoggerService.ecritLogMessage(LOGGER, Level.INFO, "Rapport {} non présent en cache, on interroge la bdd", params);
-    	
-		Rapport myRapport =rapportRepository.findByNumRapport(num);
-		if(myRapport !=null) {
-			return  rapportMapper.entityToDto(myRapport);
-		}
-		return null;
-	}
-
-	public List<RapportDto> getByNumAssure(int numAssure){
-		
-		// je  recherche le ou les rapports en fonction du num_assure
-		
-		Integer[] params =  {numAssure};
-    	LoggerService.ecritLogMessage(LOGGER, Level.INFO, "Rapport {} non présent en cache, on interroge la bdd", params);
-    	
-		List<Rapport> myRapports = rapportRepository.findByNumAssure(numAssure);	
-		if(myRapports !=null) {
-			return  rapportMapper.entitiesToDtos(myRapports);
-		}
-		return null;
-	}
+	/**
+	 * Fonction getByNumRapport : recherche des rapport d'un assuré en 
+	 * fonction du numéro  de rapport
+	 * @param numRapport : le numéro de rapport
+	 * @return : un rapport DTO avec la liste des assurés ainsi que la liste des commentaires
+	 */
+	@Cacheable(value= "rapportGetbyNumRapport",key="#num")
+	public RapportDto getByNumRapport(Integer num);
 	
-	public List<RapportDto> getByNomAssure(String nomAssure){
-		
-		// je  recherche le ou les rapports en fonction du nom_assure
-		
-		String[] params =  {nomAssure};
-    	LoggerService.ecritLogMessage(LOGGER, Level.INFO, "Rapport {} non présent en cache, on interroge la bdd", params);
-    	
-		List<Rapport> myRapports = rapportRepository.findByNomAssure(nomAssure);	
-		if(myRapports !=null) {
-			return  rapportMapper.entitiesToDtos(myRapports);
-		}
-		return null;
-	}
-
-	public void deleteRapport(Rapport rapport) {
-		rapportRepository.delete(rapport);
-	}
-
+	/**
+	 * Fonction getByNumAssureOrNom : recherche des rapport d'un assuré en 
+	 * fonction du numéro de l'assuré 
+	 * @param numAssure : le numéro de l'assure
+	 * @return : une liste de rapports avec la liste des assurés
+	 */
+	public List<RapportDto> getByNumAssure(int numAssure);
+	
+	/**
+	 * Fonction getByNumAssureOrNom : recherche des rapport d'un assuré en 
+	 * fonction du nom de l'assure
+	 * @param nomAssure : le nom de l'assure
+	 * @return : une liste de rapports avec la liste des assurés
+	 */
+	public List<RapportDto> getByNomAssure(String nomAssure);
+	
+	/**
+	 * Fonction deleteRapport : supprimer un rapport
+	 * @return : 
+	 */
+	public void deleteRapport(Rapport rapport);
 }

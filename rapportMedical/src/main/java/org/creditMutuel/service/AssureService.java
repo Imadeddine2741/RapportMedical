@@ -4,43 +4,34 @@ import java.util.List;
 
 import org.creditMutuel.model.dto.AssureDto;
 import org.creditMutuel.model.entity.Assure;
-import org.creditMutuel.model.mapper.AssureMapperImpl;
-import org.creditMutuel.repository.AssureeRepository;
-import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+public interface AssureService {
 
-@Service
-@RequiredArgsConstructor 
-public class AssureService implements AssureServiceImpl{
+	/**
+	 * Fonction getAll : récuperer tout les rapports
+	 * @return : une liste de rapports
+	 */
+	public List<AssureDto> getAll();
 	
-	private final AssureeRepository assureeRepository;
-
-	private final AssureMapperImpl assureMapper;
+	/**
+	 * Fonction getById : recherche d'un assuré en fonction de son id
+	 * @param assureId : l'id de l'assuré
+	 * @return : Assure DTO 
+	 */
+	public AssureDto getByIdToDto(Long assureId);
 	
-	public List<AssureDto> getAll(){
+	/**
+	 * Fonction getById : recherche d'un assuré en fonction de son id
+	 * @param assureId
+	 * @return : l'assure si trouvé
+	 */
 	
-		List<Assure> assures = assureeRepository.findAll();
-		if(!assures.isEmpty()) {
-			return assureMapper.entitiesToDto(assures);
-		}
-		return null;
- 	}
-
-	public AssureDto getByIdToDto(Long assureId) {	
-		Assure assure = assureeRepository.findById(assureId).orElse(null);
-		return assureMapper.entityToDto(assure);	
-	}
+	public Assure getById(Long assureId);
 	
-	public Assure getById(Long assureId) {
-		Assure assure = assureeRepository.findById(assureId).orElse(null);
-		return assure;	
-	}
-
-	public AssureDto ajouterAssure(Assure assure) {
-		Assure assureSave =  assureeRepository.save(assure);
-		return assureMapper.entityToDto(assureSave);
-				
-	}
-
+	/**
+	 * Fonction ajouterAssure : ajouter un assuré
+	 * @param assure
+	 * @return :  Assure DTO 
+	 */
+	public AssureDto ajouterAssure(Assure assure); 
 }
