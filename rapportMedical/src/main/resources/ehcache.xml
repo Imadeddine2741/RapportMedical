@@ -9,7 +9,7 @@
         <key-type>java.lang.Integer</key-type>
         <value-type>org.creditMutuel.model.dto.RapportDto</value-type>
         <expiry>
-            <ttl unit="seconds">30</ttl>
+            <ttl unit="seconds">10</ttl>
         </expiry>
  
         <listeners>

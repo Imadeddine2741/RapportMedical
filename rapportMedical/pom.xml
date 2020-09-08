@@ -63,49 +63,55 @@
 			<artifactId>mockito-core</artifactId>
 			<version>2.21.0</version>
 		</dependency>
-		
+
 		<!-- Pour MapStruct / DTO -->
 		<dependency>
-		    <groupId>org.mapstruct</groupId>
-		    <artifactId>mapstruct</artifactId>
-		    <version>1.3.1.Final</version> 
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.3.1.Final</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.mapstruct</groupId>
-		    <artifactId>mapstruct-processor</artifactId>
-		    <version>1.3.1.Final</version> 
-		</dependency>		
-		
-    	<!-- Pour thymeleaf -->
-		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.3.1.Final</version>
 		</dependency>
-    		
-    	<!-- Pour l'ehcache -->
+
+		<!-- Pour thymeleaf -->
 		<dependency>
-		    <groupId>javax.cache</groupId>
-		    <artifactId>cache-api</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Pour l'ehcache -->
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.ehcache</groupId>
-		    <artifactId>ehcache</artifactId>
-		</dependency>  
-		
+			<groupId>org.ehcache</groupId>
+			<artifactId>ehcache</artifactId>
+		</dependency>
+
 		<!-- Pour Swagger -->
 		<dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-swagger2</artifactId>
-		    <version>2.9.2</version>
-		    <scope>compile</scope>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-swagger-ui</artifactId>
-		    <version>2.9.2</version>
-		    <scope>compile</scope>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+			<scope>compile</scope>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.puremvc</groupId>
+			<artifactId>puremvc</artifactId>
+			<version>2.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

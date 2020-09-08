@@ -13,18 +13,18 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>numRapport</th><th>dateCreation</th><th>titre</th><th>domaine</th><th>position</th>
+				<th>numRapport</th><th>Nom & Prénom / Raison sociale</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="r:${listeRapports}">
-			<td th:text ="${r.num}"></td>
-			<td th:text ="${r.dateCreation}"></td>
-			<td th:text ="${r.titre}"></td>
-			<td th:text ="${r.domaine}"></td>
-			<td th:text ="${r.position}"></td>
-			<td><a th:href ="@{delete(id=${r.idRapport})}">Delete</a></td>
+				<td th:text ="${r.num}"></td>
+				<td> <span th:text ="${r.assure.nom}"></span> <span th:text ="${r.assure.prenom}"></span></td>
+				<td><a th:href ="@{delete(id=${r.idRapport})}">Delete</a></td>
 			</tr>
+			<tr th:if="${!#arrays.isEmpty(listeRapports)}">
+				<td>Eléments : <span th:text ="${#arrays.length(listeRapports)}"></span></td>
+			</tr>	
 		</tbody>
 	</table>
 	</div>

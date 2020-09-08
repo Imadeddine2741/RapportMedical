@@ -5,11 +5,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.creditMutuel.exception.ResourceNotFoundException;
+import org.creditMutuel.exception.MyException;
 import org.creditMutuel.model.dto.RapportDto;
 import org.creditMutuel.model.entity.Rapport;
 import org.creditMutuel.service.RapportService;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.creditMutuel.logger.LoggerService;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import io.swagger.annotations.ApiOperation;
+
 
 
 @RestController
@@ -34,7 +39,9 @@ public class RapportController {
 	@Autowired
 	private RapportService rapportService;
 	
-	private final static Logger logger =LoggerFactory.getLogger(RapportController.class);
+	private static final Logger LOGGER = 
+			(ch.qos.logback.classic.Logger) LoggerFactory.getLogger(RapportController.class);
+	
 	/**
      * Fonction index : affichage de l'écran de départ
      * @return : le ModelAndView
@@ -48,6 +55,19 @@ public class RapportController {
 
 		return modelAndView;
 	}
+	
+	/**
+     * Fonction genereExceptionControlee : création de l'écouteur sur l'uri de type
+     * GET "/genereExceptionControlee" = génération d'une exception
+     * @return : le ModelAndView
+     * @throws MyException : l'exception générée
+     */
+	@GetMapping("/genereExceptionControlee")
+	@ApiOperation(value = "Test de génération d'un exception")
+    public ModelAndView genereExceptionControlee() throws MyException {
+    	LoggerService.ecritLogMessage(LOGGER, Level.ERROR, "Ce lien génère une exception controlée", (Object[])null);
+		throw new MyException(LOGGER, "Ce n'était pas écrit de ne pas cliquer sur ce lien ?");
+    }
 	
 	/**
 	 * Fonction recherche : recherche en fonction du critère renseigner 
@@ -120,10 +140,10 @@ public class RapportController {
 
 	@PutMapping("/rapport/{num}")
 	public ResponseEntity<RapportDto> updateRapport(@PathVariable(value = "id") int num_rapport,
-			@Valid @RequestBody Rapport rapportDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody Rapport rapportDetails) throws MyException {
 		RapportDto rapport = rapportService.getByNumRapport(num_rapport);
 		if(rapport ==null) {
-			throw new ResourceNotFoundException("Rapport not found for this id :: " + num_rapport);
+			throw new MyException(LOGGER,"Rapport not found for this id :: " + num_rapport);
 		}
 
 		rapport.setDateCreation(rapportDetails.getDateCreation());

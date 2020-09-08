@@ -4,10 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.creditMutuel.exception.ResourceNotFoundException;
+import org.creditMutuel.exception.MyException;
 import org.creditMutuel.model.dto.AssureDto;
 import org.creditMutuel.model.entity.Assure;
 import org.creditMutuel.service.AssureService;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.qos.logback.classic.Logger;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,6 +30,10 @@ public class AssureController {
 
 	private final AssureService assureService;
 	
+	@SuppressWarnings("unused")
+	private static final Logger LOGGER = 
+	(ch.qos.logback.classic.Logger) LoggerFactory.getLogger(MyException.class);
+	
 	@GetMapping("/assures")
 	public ResponseEntity<List<AssureDto>> getAllAssures(Model model){
 		List<AssureDto> ListAssures = assureService.getAll();
@@ -37,11 +43,11 @@ public class AssureController {
 
 	@GetMapping("/assuree/{id}")
 	public ResponseEntity<AssureDto> getAssureeById(@PathVariable(value = "id") Long assureId)
-			throws ResourceNotFoundException {
+			throws MyException {
 		AssureDto assureDtO = assureService.getByIdToDto(assureId);
 		
 		if(assureDtO == null) {
-			throw new ResourceNotFoundException("Assuree not found for this id :: " + assureId);
+			throw new MyException(LOGGER,"Assuree not found for this id :: " + assureId);
 		}
 		return ResponseEntity.ok().body(assureDtO);
 		
@@ -55,10 +61,10 @@ public class AssureController {
 	
 	@PutMapping("/assuree/{id}")
 	public ResponseEntity<AssureDto> updateAssuree(@PathVariable(value = "id") Long assureId,
-			@Valid @RequestBody AssureDto assureeDetails) throws ResourceNotFoundException {
+			@Valid @RequestBody AssureDto assureeDetails) throws MyException {
 		Assure assure = assureService.getById(assureId);
 		if(assure == null) {
-			throw new ResourceNotFoundException("Assuree not found for this id :: " + assureId);
+			throw new MyException(LOGGER,"Assuree not found for this id :: " + assureId);
 		}
 
 		assure.setNom(assureeDetails.getNom());
